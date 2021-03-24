@@ -19,6 +19,6 @@ class Siswa extends Model
 
     public function mapel() // php artisan tinker; utk uji coba data via terminal, misal relasi
     {
-        return $this->belongsToMany(Mapel::class)->withPivot(['nilai']); // mengambil field nilai di tabel mapel_siswa
+        return $this->belongsToMany(Mapel::class)->withPivot(['nilai'])->withTimeStamps(); // mengambil field nilai di tabel mapel_siswa
     }
 }
