@@ -43,7 +43,7 @@ class SiswaController extends Controller
         // insert ke table siswa
         $request->request->add(['user_id' => $user->id]);
         $siswa = \App\Siswa::create($request->all());
-        
+
         if($request->hasFile('avatar')){
             $request->file('avatar')->move('images/',$request->file('avatar')->getClientOriginalName());
             $siswa->avatar = $request->file('avatar')->getClientOriginalName();
@@ -82,6 +82,33 @@ class SiswaController extends Controller
     public function profile($id)
     {
         $siswa = \App\Siswa::find($id);
-        return view('siswa.profile',['siswa' => $siswa]);
+        $matapelajaran = \App\Mapel::all();
+    
+        // menyiapkan data untuk chart berupa array
+        $categories = [];
+        $data = [];
+        foreach($matapelajaran as $mp)
+        {
+            if($siswa->mapel()->wherePivot('mapel_id', $mp->id)->first()){
+                $categories[] = $mp->nama;
+                $data[] = $siswa->mapel()->wherePivot('mapel_id',$mp->id)->first()->pivot->nilai;
+            }
+        }
+
+        return view('siswa.profile',['siswa' => $siswa, 'matapelajaran' =>$matapelajaran, 'categories' => $categories, 'data' => $data]);
+    
+    }
+
+    public function addnilai(Request $request, $idsiswa)
+    {
+        $siswa = \App\Siswa::find($idsiswa);
+        if($siswa->mapel()->where('mapel_id', $request->mapel)->exists())
+        {
+            return redirect()->route('profile', $idsiswa)->with('error', 'Mata pelajaran sudah ada');            
+        }
+        $siswa->mapel()->attach($request->mapel,['nilai'=> $request->nilai]);
+
+        // return Redirect('/siswa', $idsiswa,'/profile')->with('sukses', 'Data nilai berhasil dimasukkan');
+        return redirect()->route('profile', $idsiswa)->with('sukses', 'Data nilai berhasil dimasukkan');
     }
 }
