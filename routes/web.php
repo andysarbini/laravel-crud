@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::get('/siswa/{id}/profile', 'SiswaController@profile')->name('profile');
     Route::post('siswa/{id}/addnilai', 'SiswaController@addnilai');
     Route::get('/siswa/{id}/{idmapel}/deletenilai', 'SiswaController@deletenilai');
+    Route::get('/guru/{id}/profile', 'GuruController@profile');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:admin,siswa']], function(){ // array admin dan siswa jangan pakai spasi
