@@ -23,7 +23,7 @@ class SiswaController extends Controller
 
     public function create(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request,[ // $this itu utk memanggil objek/class siswa yg sudah terbentuk
             'nama_depan' => 'required|min:5',
             'email' => 'required|unique:users',
             'jenis_kelamin' => 'required',
