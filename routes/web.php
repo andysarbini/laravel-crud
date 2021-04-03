@@ -28,6 +28,8 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::get('/siswa/{id}/profile', 'SiswaController@profile')->name('profile');
     Route::post('siswa/{id}/addnilai', 'SiswaController@addnilai');
     Route::get('/siswa/{id}/{idmapel}/deletenilai', 'SiswaController@deletenilai');
+    Route::get('/siswa/exportExcel', 'SiswaController@exportExcel');
+    Route::get('/siswa/exportPdf', 'SiswaController@exportPdf'); // case sensitif
     Route::get('/guru/{id}/profile', 'GuruController@profile');
 });
 

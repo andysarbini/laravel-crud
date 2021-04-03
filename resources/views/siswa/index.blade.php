@@ -8,7 +8,9 @@
                 <div class="panel">
 								<div class="panel-heading">
 									<h3 class="panel-title">Data Siswa</h3>
-                                    <div class="right">                                                                            
+                                    <div class="right">
+                                        <a href="{{('siswa/exportExcel')}}" class="btn btn-sm btn-primary">Excel</a>                                                                            
+                                        <a href="{{('siswa/exportPdf')}}" class="btn btn-sm btn-primary">PDF</a>                                                                            
                                         <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="lnr lnr-plus-circle"></i></button>
                                     </div>
 								</div>
