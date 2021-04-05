@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Exports\SiswaExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
+use App\Siswa;
 
 class SiswaController extends Controller
 {
@@ -57,16 +58,16 @@ class SiswaController extends Controller
         return redirect('/siswa')->with('sukses', 'Data berhasil diinput');
     }
 
-    public function edit($id)
+    public function edit(Siswa $siswa)
     {
-        $siswa = \App\Siswa::find($id);
+        // $siswa = \App\Siswa::find($id);  App dihapus krn sudah di panggil di atas menggunakan use
         return view('siswa.edit',['siswa' => $siswa]);
     }
     
     public function update(Request $request, $id)
     {
         // dd($request->all());
-        $siswa = \App\Siswa::find($id);
+        
         $siswa->update($request->all());
         if($request->hasFile('avatar')){
             $request->file('avatar')->move('images/',$request->file('avatar')->getClientOriginalName());
@@ -76,16 +77,15 @@ class SiswaController extends Controller
         return redirect('/siswa')->with('sukses', 'Data berhasil diupdate');
     }
 
-    public function delete($id)
+    public function delete($id) // id nya ditangkap didalam parameter
     {
-        $siswa = \App\Siswa::find($id);
+        $siswa = Siswa::find($id); // deklarasi objek siswa
         $siswa->delete($siswa);
         return redirect('/siswa')->with('sukses', 'Data berhasil dihapus');
     }
 
-    public function profile($id)
-    {
-        $siswa = \App\Siswa::find($id);
+    public function profile(Siswa $siswa) // pengganti parameter id, jd tidak perlu lg deklarasi siswa sperti method delete
+    { 
         $matapelajaran = \App\Mapel::all();
     
         // menyiapkan data untuk chart berupa array
@@ -103,9 +103,8 @@ class SiswaController extends Controller
     
     }
 
-    public function addnilai(Request $request, $idsiswa)
+    public function addnilai(Request $request, Siswa $siswa)
     {
-        $siswa = \App\Siswa::find($idsiswa);
         if($siswa->mapel()->where('mapel_id', $request->mapel)->exists())
         {
             return redirect()->route('profile', $idsiswa)->with('error', 'Mata pelajaran sudah ada');            

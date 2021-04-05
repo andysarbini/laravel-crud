@@ -36,8 +36,11 @@
                             <td>{{$siswa->agama }}</td>
                             <td>{{$siswa->alamat }}</td>
                             <td>{{$siswa->rataRataNilai()}}</td>
-                            <td><a href="{{ url('siswa') }}/{{$siswa->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="{{ url('siswa') }}/{{$siswa->id}}/delete" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau dihapus?')">Delete</a></td>
+                            <td>
+                                <a href="{{ url('siswa') }}/{{$siswa->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
+                                <!-- <a href="{{ url('siswa') }}/{{$siswa->id}}/delete" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau dihapus?')">Delete</a> -->
+                                <a href="#" class="btn btn-danger btn-sm delete" siswa-id="{{$siswa->id}}">Delete</a>
+                            </td>
                         </tr>
                         @endforeach
 										</tbody>
@@ -116,4 +119,25 @@
             </div>
 @stop  
 
+@section('footer')
+    <script>
+        $('.delete').click(function(){ // jk class delete di klik, mk jalankan function
+            var siswa_id = $(this).attr('siswa-id'); // variabel siswa_id mengambil atribut id dri element diatas
+            swal({
+                title: "Are you sure?",
+                text: "data "+siswa_id+" will be delete",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => { // promise di javascript
+                    console.log(willDelete);
+                    if (willDelete) {
+                        window.location = "siswa/"+siswa_id+"/delete";
+                    }
+            });
+        });
+
+    </script>
+@stop
         
