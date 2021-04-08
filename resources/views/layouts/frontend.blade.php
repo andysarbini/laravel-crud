@@ -14,7 +14,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>Education</title>
+		<title>{{config('sekolah.title')}}</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<!--
@@ -53,7 +53,8 @@
 		    <div class="container main-menu">
 		    	<div class="row align-items-center justify-content-between d-flex">
 			      <div id="logo">
-			        <a href="index.html"><img src="{{asset('/frontend')}}/img/logo.png" alt="" title="" /></a>
+			        <!-- <a href="index.html"><img src="{{asset('/frontend')}}/img/logo.png" alt="" title="" /></a> -->
+			        <a href="index.html"><img src="{{config('sekolah.logo_url')}}" alt="" title="" /></a>
 			      </div>
 			      <nav id="nav-menu-container">
 			        <ul class="nav-menu">
@@ -151,7 +152,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 			<script src="{{asset('/frontend')}}/js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-			<script src="{{asset('/frontend')}}/js/vendor/bootstrap.min.js"></script>			
+			<!-- <script src="{{asset('/frontend')}}/js/vendor/bootstrap.min.js"></script>			 -->
 			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
   			<script src="{{asset('/frontend')}}/js/easing.min.js"></script>			
 			<script src="{{asset('/frontend')}}/js/hoverIntent.js"></script>
