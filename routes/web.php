@@ -17,6 +17,7 @@ Route::get('/register', 'SiteController@register');
 Route::post('/postregister', 'SiteController@postregister');
 Route::get('/about', 'SiteController@about');
 
+
 Route::get('/login', 'AuthController@login')->name('login');
 Route::post('/postlogin', 'AuthController@postlogin');
 Route::get('/logout', 'AuthController@logout');
@@ -33,8 +34,14 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::get('/siswa/exportExcel', 'SiswaController@exportExcel');
     Route::get('/siswa/exportPdf', 'SiswaController@exportPdf'); // case sensitif
     Route::get('/guru/{id}/profile', 'GuruController@profile');
+    Route::get('/posts', 'PostController@index');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:admin,siswa']], function(){ // array admin dan siswa jangan pakai spasi
     Route::get('/dashboard', 'DashboardController@index');
 });
+
+Route::get('/{slug}',[ // simpan di akhir, krn jk disimpan diawal akan di load dahulu
+    'uses' => 'SiteController@singlepost', // uses: menggunakan controller apa, halaman singlepost
+    'as' => 'site.single.post'
+]);
