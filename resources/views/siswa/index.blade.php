@@ -6,29 +6,28 @@
             <div class="row">
                 <div class="col-md-12">
                 <div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">Data Siswa</h3>
-                                    <div class="right">
-                                        <a href="{{('siswa/exportExcel')}}" class="btn btn-sm btn-primary">Excel</a>                                                                            
-                                        <a href="{{('siswa/exportPdf')}}" class="btn btn-sm btn-primary">PDF</a>                                                                            
-                                        <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="lnr lnr-plus-circle"></i></button>
-                                    </div>
-								</div>
-								<div class="panel-body">
-									<table class="table table-hover">
-										<thead>
-											<tr>
-                                            <th>NAMA DEPAN</th>
-                                            <th>NAMA BELAKANG</th>
-                                            <th>JENIS KELAMIN</th>
-                                            <th>AGAMA</th>
-                                            <th>ALAMAT</th>
-                                            <th>TEST</th>
-                                            <th>AKSI</th>
-											</tr>
-										</thead>
-										<tbody>
-                                        @foreach($data_siswa as $siswa)
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Data Siswa</h3>
+                        <div class="right">
+                            <a href="{{('siswa/exportExcel')}}" class="btn btn-sm btn-primary">Excel</a>                                                                            
+                            <a href="{{('siswa/exportPdf')}}" class="btn btn-sm btn-primary">PDF</a>                                                                            
+                            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="lnr lnr-plus-circle"></i></button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover" id="datatable">
+                            <thead>
+                                <tr>
+                                <th>NAMA LENGKAP</th>                                
+                                <th>JENIS KELAMIN</th>
+                                <th>AGAMA</th>
+                                <th>ALAMAT</th>
+                                <th>RATA2 NILAI</th>
+                                <th>AKSI</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($data_siswa as $siswa)
                         <tr>
                             <td><a href="{{ url('siswa') }}/{{$siswa->id }}/profile">{{$siswa->nama_depan}}</a></td>
                             <td><a href="{{ ('siswa/')}}{{$siswa->id }}/profile">{{$siswa->nama_belakang}}</a></td>
@@ -36,17 +35,18 @@
                             <td>{{$siswa->agama }}</td>
                             <td>{{$siswa->alamat }}</td>
                             <td>{{$siswa->rataRataNilai()}}</td>
-                            <td>
-                                <a href="{{ url('siswa') }}/{{$siswa->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
+                            <!-- <td>
+                                <a href="{{ url('siswa') }}/{{$siswa->id}}/edit" class="btn btn-warning btn-sm">Edit</a> -->
                                 <!-- <a href="{{ url('siswa') }}/{{$siswa->id}}/delete" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau dihapus?')">Delete</a> -->
-                                <a href="#" class="btn btn-danger btn-sm delete" siswa-id="{{$siswa->id}}">Delete</a>
-                            </td>
+                                <!-- <a href="#" class="btn btn-danger btn-sm delete" siswa-id="{{$siswa->id}}">Delete</a>
+                            </td> -->
                         </tr>
                         @endforeach
-										</tbody>
-									</table>
-								</div>
-							</div>
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -121,20 +121,36 @@
 
 @section('footer')
     <script>
-        $('.delete').click(function(){ // jk class delete di klik, mk jalankan function
-            var siswa_id = $(this).attr('siswa-id'); // variabel siswa_id mengambil atribut id dri element diatas
-            swal({
-                title: "Are you sure?",
-                text: "data "+siswa_id+" will be delete",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-                })
-                .then((willDelete) => { // promise di javascript
-                    console.log(willDelete);
-                    if (willDelete) {
-                        window.location = "siswa/"+siswa_id+"/delete";
-                    }
+        $(document).ready(function(){     // jalankan function jk document di load
+            $('#datatable').DataTable({
+                processing:true,
+                serverside:true,
+                ajax:"{{route('ajax.get.data.siswa')}}",
+                columns:[
+                    {data:'nama_lengkap', name:'nama_lengkap'},      
+                    {data:'jenis_kelamin', name:'jenis_kelamin'},
+                    {data:'agama', name:'agama'},
+                    {data:'alamat', name:'alamat'},
+                    {data:'rata2_nilai', name:'rata2_nilai'},
+                    {data:'aksi', name:'aksi'}
+                ]
+            });
+
+            $('.delete').click(function(){ // jk class delete di klik, mk jalankan function
+                var siswa_id = $(this).attr('siswa-id'); // variabel siswa_id mengambil atribut id dri element diatas
+                swal({
+                    title: "Are you sure?",
+                    text: "data "+siswa_id+" will be delete",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    })
+                    .then((willDelete) => { // promise di javascript
+                        console.log(willDelete);
+                        if (willDelete) {
+                            window.location = "siswa/"+siswa_id+"/delete";
+                        }
+                });
             });
         });
 

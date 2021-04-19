@@ -16,10 +16,12 @@ class SiswaController extends Controller
     {
         if($request->has('cari'))
         {
-            $data_siswa = \App\Siswa::where('nama_depan','LIKE','%' .$request->cari. '%')->get();
+            $data_siswa = \App\Siswa::where('nama_depan','LIKE','%' .$request->cari. '%')->paginate(20); // server side
+            // $data_siswa = \App\Siswa::where('nama_depan','LIKE','%' .$request->cari. '%')->get();
         }
         else
         {
+            // $data_siswa = \App\Siswa::paginate(20);
             $data_siswa = \App\Siswa::all();
         }      
 
@@ -132,5 +134,22 @@ class SiswaController extends Controller
         $siswa = \App\Siswa::all();
         $pdf = PDF::loadView('export.siswapdf', ['siswa' => $siswa]);
         return $pdf->download('siswa.pdf');
+    }
+
+    public function getdatasiswa()
+    {
+        $siswa = Siswa::select('siswa.*');
+        return \DataTables::eloquent($siswa)
+        ->addColumn('nama_lengkap', function($s){
+            return $s->nama_depan.' '.$s->nama_belakang;
+        })
+        ->addColumn('rata2_nilai', function($s){ // $s, mewakili 1 siswa yg akan di looping
+            return $s->rataRataNilai();
+        })
+        ->addColumn('aksi', function($s){
+            return '<a href="#" class="btn btn-warning">Edit</a>';
+        })
+        ->rawColumns(['nama_lengkap', 'rata2_nilai', 'aksi']) // setip addcolumn masukkan kedalam array
+        ->toJson();
     }
 }

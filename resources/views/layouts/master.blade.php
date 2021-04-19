@@ -17,11 +17,17 @@
 	<link rel="stylesheet" href="{{asset('admin/assets/css/demo.css')}}">
 	<!-- toastr -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 	<!-- GOOGLE FONTS -->
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="{{asset('admin/assets/img/favicon.png')}}">
+	<style>
+		.ck-editor__editable_inline {
+    min-height: 300px;
+}
+	</style>
 	@yield('header')
 </head>
 
@@ -52,6 +58,9 @@
 	<script src="{{asset('admin/assets/scripts/klorofil-common.js')}}"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script src="{{asset('frontend/js/ckeditor.js')}}"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
 	<script>
 		@if(Session::has('sukses'))
 			toastr.success("{{Session::get('sukses')}}", "Hi admin") // menampilkan pesan yg dilempar dari controller delete

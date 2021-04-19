@@ -9,7 +9,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">POSTS</h3>
                                     <div class="right">                                                                           
-                                        <a href="{{('siswa/exportPdf')}}" class="btn btn-sm btn-primary">Add new post</a>                                                                            
+                                        <a href="{{route('posts.add'}}" class="btn btn-sm btn-primary">Add new post</a>                                                                            
                                     </div>
 								</div>
 								<div class="panel-body">
@@ -45,9 +45,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    
+    </div>   
 @stop  
 
 @section('footer')

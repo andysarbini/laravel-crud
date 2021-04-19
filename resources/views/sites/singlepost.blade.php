@@ -37,15 +37,10 @@
 									</ul>
 									<div class="user-details row">
 										<p class="user-name col-lg-12 col-md-12 col-6"><a href="#">{{$post->user->name}}</a> <span class="lnr lnr-user"></span></p>
-										<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{$post->created_at}}</a> <span class="lnr lnr-calendar-full"></span></p>
-										<p class="view col-lg-12 col-md-12 col-6"><a href="#">1.2M Views</a> <span class="lnr lnr-eye"></span></p>
-										<p class="comments col-lg-12 col-md-12 col-6"><a href="#">06 Comments</a> <span class="lnr lnr-bubble"></span></p>
-										<ul class="social-links col-lg-12 col-md-12 col-6">
-											<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-											<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-											<li><a href="#"><i class="fa fa-github"></i></a></li>
-											<li><a href="#"><i class="fa fa-behance"></i></a></li>
-										</ul>																				
+										<!-- <p class="date col-lg-12 col-md-12 col-6"><a href="#">{{$post->created_at->format('D, d M Y')}}</a> <span class="lnr lnr-calendar-full"></span></p> -->
+										<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{$post->created_at->diffforhumans()}}</a> <span class="lnr lnr-calendar-full"></span></p>
+										
+																													
 									</div>
 								</div>
 								<div class="col-lg-9 col-md-9">
@@ -54,9 +49,7 @@
 									{!!$post->content!!}
 								</div>
 								<div class="col-lg-12">
-									<div class="quotes">
-										MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training.										
-									</div>
+									
 									<div class="row mt-30 mb-30">
 										<div class="col-6">
 											<img class="img-fluid" src="img/blog/post-img1.jpg" alt="">
@@ -64,14 +57,7 @@
 										<div class="col-6">
 											<img class="img-fluid" src="img/blog/post-img2.jpg" alt="">
 										</div>	
-										<div class="col-lg-12 mt-30">
-											<p>
-												MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.
-											</p>
-											<p>
-												MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.
-											</p>											
-										</div>									
+																		
 									</div>
 								</div>
 							</div>
@@ -232,9 +218,9 @@
 								</div>
 								<div class="single-sidebar-widget user-info-widget">
 									<img src="img/blog/user-info.png" alt="">
-									<a href="#"><h4>Charlie Barber</h4></a>
+									<a href="#"><h4>{{$post->user->name}}</h4></a>
 									<p>
-										Senior blog writer
+										{{$post->user->role}}
 									</p>
 									<ul class="social-links">
 										<li><a href="#"><i class="fa fa-facebook"></i></a></li>

@@ -34,12 +34,25 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::get('/siswa/exportExcel', 'SiswaController@exportExcel');
     Route::get('/siswa/exportPdf', 'SiswaController@exportPdf'); // case sensitif
     Route::get('/guru/{id}/profile', 'GuruController@profile');
-    Route::get('/posts', 'PostController@index');
+    Route::get('/posts', 'PostController@index')->name('posts.index');
+    Route::get('post/add',[
+        'uses' => 'PostController@add',
+        'as' => 'post.add',
+    ]);
+    Route::post('post/create', [
+        'uses' => 'PostController@create',
+        'as' => 'post.create',
+    ]);
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:admin,siswa']], function(){ // array admin dan siswa jangan pakai spasi
     Route::get('/dashboard', 'DashboardController@index');
 });
+
+Route::get('getdatasiswa',[
+    'uses' => 'SiswaController@getdatasiswa',
+    'as' => 'ajax.get.data.siswa',
+]);
 
 Route::get('/{slug}',[ // simpan di akhir, krn jk disimpan diawal akan di load dahulu
     'uses' => 'SiteController@singlepost', // uses: menggunakan controller apa, halaman singlepost
