@@ -49,6 +49,10 @@ Route::group(['middleware' => ['auth', 'checkRole:admin,siswa']], function(){ //
     Route::get('/dashboard', 'DashboardController@index');
 });
 
+Route::group(['middleware' => ['auth', 'checkRole:siswa']], function(){
+    Route::get('profilsaya', 'SiswaController@profilsaya');
+});
+
 Route::get('getdatasiswa',[
     'uses' => 'SiswaController@getdatasiswa',
     'as' => 'ajax.get.data.siswa',

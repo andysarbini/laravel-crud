@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class); // relasi 1 user memiliki bnyak post
     }
+
+    public function siswa()
+    {
+        return $this->hasOne(Siswa::class); // one to one, mengambil 1 row dari tabel siswa
+    }
 }

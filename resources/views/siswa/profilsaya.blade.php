@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('header')
-<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+
 @stop
 
     @section('content')
@@ -115,88 +115,12 @@
 			<!-- END MAIN CONTENT -->
 		</div>
 
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Nilai</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-		<form action="{{ url('siswa')}}/{{$siswa->id}}/addnilai" method="POST" enctype="multipart/form-data">
-			{{csrf_field()}}
-			<div class="form-group">
-				<label for="mapel">Mata Pelajaran</label>
-				<select class="form-control" id="mapel" name="mapel">
-					@foreach($matapelajaran as $mp)
-						<option value="{{$mp->id}}">{{$mp->nama}}</option>
-					@endforeach
-				</select>
-			</div>
-			<div class="form-group{{$errors->has('nama_depan') ? ' has-error' : ''}}">
-				<label for="nilai">Nilai</label>
-				<input type="text" name="nilai" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Input nilai" value="{{old('nilai')}}">
-				@if($errors->has('nama_depan'))
-					<span class="help-block">{{$errors->first('nilai')}}</span>
-				@endif
-			</div>
-			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Simpan</button>
-			</div>
-		</form>
-      </div>
-    </div>
-  </div>
-</div>
+		
 @stop
 
 @section('footer')
 <!-- skrip ini akan disisipkan kedalam file master pada yield footer -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-	<script src="https://code.highcharts.com/highcharts.js"></script>
+
 	<script>
-		Highcharts.chart('chartNilai', {
-		chart: {
-			type: 'column'
-		},
-		title: {
-			text: 'Laporan Nilai Siswa'
-		},
-		
-		xAxis: {
-			categories: {!!json_encode($categories)!!}, // tanda seru agar output tidak berupa html
-			crosshair: true
-		},
-		yAxis: {
-			min: 0,
-			title: {
-				text: 'Nilai'
-			}
-		},
-		tooltip: {
-			headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-			
-			footerFormat: '</table>',
-			shared: true,
-			useHTML: true
-		},
-		plotOptions: {
-			column: {
-				pointPadding: 0.2,
-				borderWidth: 0
-			}
-		},
-		series: [{
-			name: 'Nilai',
-			data: {!!json_encode($data)!!}
-
-		}]
-	});
-
-	$(document).ready(function() {
-    	$('.nilai').editable();
-	});
 	</script> 
 @stop
