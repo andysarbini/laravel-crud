@@ -39,6 +39,17 @@ class SiteController extends Controller
         $request->request->add(['user_id' => $user->id]);
         $siswa = \App\Siswa::create($request->all());
 
+        \Mail::raw('Selamat datang '.$user->name, function ($message) use($user) {
+            // $message->from('john@johndoe.com', 'John Doe');
+            // $message->sender('john@johndoe.com', 'John Doe');
+            $message->to($user->email, $user->name);
+            // $message->cc('john@johndoe.com', 'John Doe');
+            // $message->bcc('john@johndoe.com', 'John Doe');
+            // $message->replyTo('john@johndoe.com', 'John Doe');
+            $message->subject('Selamat anda sudah terdaftar di sekolah kami');
+            // $message->priority(3);
+            // $message->attach('pathToFile');
+        });
         
         return redirect('/home')->with('sukses', 'Pendaftaran Berhasil');
     }

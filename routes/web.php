@@ -11,6 +11,20 @@
 |
 */
 
+// Route::get('kirimemail', function(){
+//     \Mail::raw('halo siswa baru', function ($message) {
+//         // $message->from('john@johndoe.com', 'John Doe');
+//         // $message->sender('john@johndoe.com', 'John Doe');
+//         $message->to('kangandy09@gmail.com', 'Andy');
+//         // $message->cc('john@johndoe.com', 'John Doe');
+//         // $message->bcc('john@johndoe.com', 'John Doe');
+//         // $message->replyTo('john@johndoe.com', 'John Doe');
+//         $message->subject('Pendaftaran siswa');
+//         // $message->priority(3);
+//         // $message->attach('pathToFile');
+//     });
+// });
+
 // Route::get('/', 'SiteController@home');
 Route::get('/home', 'SiteController@home');
 Route::get('/register', 'SiteController@register');
