@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
     Route::get('/siswa/{id}/{idmapel}/deletenilai', 'SiswaController@deletenilai');
     Route::get('/siswa/exportExcel', 'SiswaController@exportExcel');
     Route::get('/siswa/exportPdf', 'SiswaController@exportPdf'); // case sensitif
+    Route::post('/siswa/import', 'SiswaController@importexcel')->name('siswa.import'); // case sensitif
     Route::get('/guru/{id}/profile', 'GuruController@profile');
     Route::get('/posts', 'PostController@index')->name('posts.index');
     Route::get('post/add',[
